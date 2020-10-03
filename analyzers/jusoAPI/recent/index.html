@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang='kr'>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>JUSO.API를 활용한 주소 변환</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-lg" ondragstart="event.stopPropagation(); return false;">
+        <div class='row'>
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 bg-light">
+                <div class="sidebar-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item dashboardTab">
+                            <a class="nav-link active" href="#">
+                                대시보드
+                            </a>
+                        </li>
+                        <li class="nav-item fileUploadTab">
+                            <a class="nav-link" href="#">
+                                파일
+                            </a>
+                        </li>
+                        <li class="nav-item workTab">
+                            <a class="nav-link" href="#">
+                                작업
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <main role='main' class='col-md-9 px-md-4'>
+                <div id='dashboard_page' class="container-lg">
+                    <div class='page-header'>
+                        <h1>대시 보드</h1>
+                        <canvas id="chart" width='100' height="100"></canvas>
+                    </div>
+                </div>
+                <div id='fileupload_page' class='container-lg d-none'>
+                    <div class='page-header'>
+                        <h1>파일 관리</h1>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputFile" accept=".csv">
+                            <label class="custom-file-label" for="inputFile" aria-describedby="inputFile">파일</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="input-group-text" id="acceptFile">확인</button>
+                        </div>
+                    </div>
+                    <div id="selected_file_table" class='table'></div>
+                    <div class="row">
+                        <div class="col">업로드 파일 리스트
+                            <ul class='list-group' id="upload_file_list"></ul>
+                        </div>
+                        <div class="col">분석 파일 리스트
+                            <ul id="analysis_file_list" class='list-group'></ul>
+                        </div>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+                <div id='work_page' class='container-lg d-none'>
+                    <div class='page-header'>
+                        <h1>변환 관리</h1>
+                    </div>
+                    <div class='row'>
+                        <div class='col'>
+                            <select id='conversionSelector' class='custom-select'>
+                                <option selected>변환 방법</option>
+                                <option value='도로명찾기'>도로명찾기</option>
+                                <option value='주소찾기'>주소찾기</option>
+                            </select>
+                        </div>
+                        <div class='col'>
+                            <input class="form-check-input" type="checkbox" value="" id="positionApiCallCheck">
+                            <label class="form-check-label" for="positionApiCallCheck">
+                                위치 값 취득
+                            </label>
+                        </div>
+                    </div>
+                    <div class='input-group'>
+                        <div class='input-group-prepend'>
+                            <span class='input-group-text'>주소 변환 API KEY</span>
+                        </div>
+                        <input id='address_api_key_input' class='form-control' />
+                    </div>
+                    <div id='positionApiGroup' class='input-group' style='display: none;'>
+                        <div class='input-group-prepend'>
+                            <span class='input-group-text'>좌표 취득 API KEY</span>
+                        </div>
+                        <input id='position_api_key_input' class='form-control' />
+                    </div>
+                    <div>
+                        <div class='dropdown'>
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                분석할 컬럼
+                            </button>
+                            <div id='targetColumnDropdown' class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button id="api_start_button" type='button' class='btn btn-secondary btn-lg'>변환 시작!</button>
+                        <button id="download_result_button" type='button'
+                            class='btn btn-secondary btn-lg'>다운로드!</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src='analyers/juosAPI/recent/src/js/bundle.js'></script>
+</body>
+
+</html>

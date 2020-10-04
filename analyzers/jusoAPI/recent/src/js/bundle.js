@@ -37923,6 +37923,27 @@ const progressChartCont = new chartContainer_1.chartContainer('chart');
             progressChartCont.addOnComplete();
         });
     }));
+    const getCoordinateAPI = new conversionList_1.conversionFunction('coordinateFunction', function (apikey, row, targetColumnNum, resultColumnNum, conversionColumn) {
+        const getUrl = 'http://www.juso.go.kr/addrlink/addrCoordApiJsonp.do';
+        let formData = new FormData();
+        formData.append('currentpage', '1');
+        formData.append('countPerPage', '1');
+        formData.append('dataType', 'jsonp');
+        formData.append('resultType', 'json');
+        formData.append('confmKey', apikey);
+        formData.append('keyword', row[targetColumnNum]);
+        progressChartCont.addOnProgress();
+        return fetch(getUrl, {
+            method: 'POST',
+            body: formData
+        }).then(response => response.text())
+            .then(result => result.slice(1, result.length - 1))
+            .then(result => JSON.parse(result))
+            .then(data => {
+            row[resultColumnNum] = data.results.juso !== null && data.results.juso.length > 0 ? data.results.juso[0][conversionColumn] : '';
+            progressChartCont.addOnComplete();
+        });
+    });
     const conversionTypeSelector = document.getElementById('conversionSelector');
     conversionTypeSelector.addEventListener('change', () => {
         if (conversionTypeSelector.value == '도로명찾기') { // change as more functionally
@@ -37936,10 +37957,20 @@ const progressChartCont = new chartContainer_1.chartContainer('chart');
         }
     });
     const okayButton = document.getElementById('api_start_button');
+    const checkGetCoordinate = document.getElementById('positionApiCallCheck');
+    const getCoordinateAPIInput = document.getElementById('positionApiGroup');
+    if (checkGetCoordinate !== null && getCoordinateAPIInput !== null) {
+        checkGetCoordinate.addEventListener('change', () => {
+            checkGetCoordinate.checked ?
+                getCoordinateAPIInput.style.display = '' :
+                getCoordinateAPIInput.style.display = 'none';
+        });
+    }
     if (okayButton !== null)
         okayButton.addEventListener('click', () => {
             const apiKeyInput = document.getElementById('address_api_key_input');
-            let apiKey = apiKeyInput !== null ? apiKeyInput.value : '';
+            let apiKey = apiKeyInput !== null ? apiKeyInput.value : 'U01TX0FVVEgyMDIwMTAwNDE2MjEzMDExMDI1MTA=';
+            const coordinateApiKey = 'U01TX0FVVEgyMDIwMTAwNDE2MjIzNDExMDI1MTE=';
             let file = inputFileController.targetFile;
             if (apiKey !== '' && file !== null) {
                 let jusoConversionFunction = function (file) {

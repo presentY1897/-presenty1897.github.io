@@ -37882,7 +37882,7 @@ const conversionFunctionsController = new conversionList_1.conversionList();
 const progressChartCont = new chartContainer_1.chartContainer('chart');
 (function initConverter() {
     conversionFunctionsController.addConversionFunction(new conversionList_1.conversionFunction('jibunConversionFunction', function (apikey, row, targetColumnNum, resultColumnNum, conversionColumn) {
-        const getUrl = 'http://www.juso.go.kr/addrlink/addrLinkApiJsonp.do';
+        const getUrl = 'https://www.juso.go.kr/addrlink/addrLinkApiJsonp.do';
         let formData = new FormData();
         formData.append('currentpage', '1');
         formData.append('countPerPage', '1');
@@ -37903,7 +37903,7 @@ const progressChartCont = new chartContainer_1.chartContainer('chart');
         });
     }));
     conversionFunctionsController.addConversionFunction(new conversionList_1.conversionFunction('roadConversionFunction', function (apikey, row, targetColumnNum, resultColumnNum, conversionColumn) {
-        const getUrl = 'http://www.juso.go.kr/addrlink/addrLinkApiJsonp.do';
+        const getUrl = 'https://www.juso.go.kr/addrlink/addrLinkApiJsonp.do';
         let formData = new FormData();
         formData.append('currentpage', '1');
         formData.append('countPerPage', '1');
@@ -37924,7 +37924,7 @@ const progressChartCont = new chartContainer_1.chartContainer('chart');
         });
     }));
     const getCoordinateAPI = new conversionList_1.conversionFunction('coordinateFunction', function (apikey, row, targetColumnNum, resultColumnNum, conversionColumn) {
-        const getUrl = 'http://www.juso.go.kr/addrlink/addrCoordApiJsonp.do';
+        const getUrl = 'https://www.juso.go.kr/addrlink/addrCoordApiJsonp.do';
         let formData = new FormData();
         formData.append('currentpage', '1');
         formData.append('countPerPage', '1');

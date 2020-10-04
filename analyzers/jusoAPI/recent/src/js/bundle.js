@@ -37969,7 +37969,7 @@ const progressChartCont = new chartContainer_1.chartContainer('chart');
     if (okayButton !== null)
         okayButton.addEventListener('click', () => {
             const apiKeyInput = document.getElementById('address_api_key_input');
-            let apiKey = apiKeyInput !== null ? apiKeyInput.value : 'U01TX0FVVEgyMDIwMTAwNDE2MjEzMDExMDI1MTA=';
+            let apiKey = 'U01TX0FVVEgyMDIwMTAwNDE2MjEzMDExMDI1MTA=';
             const coordinateApiKey = 'U01TX0FVVEgyMDIwMTAwNDE2MjIzNDExMDI1MTE=';
             let file = inputFileController.targetFile;
             if (apiKey !== '' && file !== null) {
